@@ -21,8 +21,8 @@ print("2)")
 
 df = pd.read_csv("dz.csv")
 
-print(df.head())
 
-group = df.groupby("City")["Salary"].mean()
+
+City = df.groupby("City")["Salary"].mean()
 
 print(group)
