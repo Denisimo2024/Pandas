@@ -14,3 +14,5 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 from app import routes
+from yourapp.routes import bp as main_bp
+app.register_blueprint(main_bp)
