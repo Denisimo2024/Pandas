@@ -29,15 +29,3 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-class EditProfileForm(FlaskForm):
-    name = StringField("Имя", validators=[DataRequired(message="Введите имя"), Length(min=2, max=50)])
-    email = StringField("Email", validators=[DataRequired(message="Введите email"), Email(message="Неверный формат email")])
-    password = PasswordField("Новый пароль", validators=[
-        Optional(),
-        Length(min=6, message="Пароль должен содержать не менее 6 символов")
-    ])
-    confirm_password = PasswordField("Подтвердите новый пароль", validators=[
-        Optional(),
-        EqualTo('password', message="Пароли должны совпадать")
-    ])
-    submit = SubmitField("Сохранить изменения")

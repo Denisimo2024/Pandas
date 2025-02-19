@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User
 from app import app, db, bcrypt
-from app.forms import RegistrationForm, LoginForm, EditProfileForm
+from app.forms import RegistrationForm, LoginForm #EditProfileForm
 
 
 @app.route('/')
@@ -51,23 +51,23 @@ def account():
     return render_template('account.html')
 
 
-@bp.route('/profile/edit', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    form = EditProfileForm(obj=current_user)  # Предзаполнение формы данными пользователя
-    if form.validate_on_submit():
-        current_user.name = form.name.data
-        current_user.email = form.email.data
-
-        # Если введён новый пароль, обновляем его
-        if form.password.data:
-            current_user.set_password(
-                form.password.data)  # Предполагается, что метод set_password реализован в модели User
-
-        db.session.commit()
-        flash('Профиль успешно обновлён!', 'success')
-        return redirect(url_for('main.profile'))  # замените на нужный endpoint
-    return render_template('edit_profile.html', form=form)
-
-from yourapp.routes import bp as main_bp
-app.register_blueprint(main_bp)
+# @bp.route('/profile/edit', methods=['GET', 'POST'])
+# @login_required
+# def edit_profile():
+#     form = EditProfileForm(obj=current_user)  # Предзаполнение формы данными пользователя
+#     if form.validate_on_submit():
+#         current_user.name = form.name.data
+#         current_user.email = form.email.data
+#
+#         # Если введён новый пароль, обновляем его
+#         if form.password.data:
+#             current_user.set_password(
+#                 form.password.data)  # Предполагается, что метод set_password реализован в модели User
+#
+#         db.session.commit()
+#         flash('Профиль успешно обновлён!', 'success')
+#         return redirect(url_for('main.profile'))  # замените на нужный endpoint
+#     return render_template('edit_profile.html', form=form)
+#
+# from yourapp.routes import bp as main_bp
+# app.register_blueprint(main_bp)
