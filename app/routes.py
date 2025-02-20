@@ -51,6 +51,27 @@ def account():
     return render_template('account.html')
 
 
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = UpdateProfileForm()
+
+    if request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+
+        if form.password.data:
+            current_user.set_password(form.password.data)
+
+        db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('profile'))
+
+    return render_template('edit_profile.html', form=form)
 # @bp.route('/profile/edit', methods=['GET', 'POST'])
 # @login_required
 # def edit_profile():
