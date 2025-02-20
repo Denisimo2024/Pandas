@@ -2,6 +2,7 @@
 
 from app import db, login_manager
 from flask_login import UserMixin
+from app import bcrypt
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -15,6 +16,9 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'User: {self.username}, email: {self.email}'
+
+def set_password(self, password):
+    self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
 # @app.route('/edit_profile', methods=['GET', 'POST'])
 # def edit_profile():
